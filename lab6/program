@@ -1,0 +1,10 @@
+#!/bin/bash
+
+avr-gcc -Os -Wall -mmcu=atmega88p avrcode.c
+avr-obj -j .text -j .data -O ihex a.out a.hex
+#Change directory specified in 4th field for where avrdude_gpio.conf is located on your system
+sudo avrdude -C ~/ece477/ece477/lab6/avrdude_gpio.conf -c pi_1 -p atmega88p -U lfuse:w:0xe2:m -U hfuse:w:0xdf:m -U efuse:w:0xf9:m
+sudo avrdude -C ~/ece477/ece477/lab6/avrdude_gpio.conf -c pi_1 -p atmega88p -U flash:w:a.hex:i
+
+exit
+
